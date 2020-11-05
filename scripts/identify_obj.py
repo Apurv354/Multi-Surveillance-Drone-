@@ -10,15 +10,6 @@ import imutils
 import time
 import cv2
 
-
-"""ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--prototxt", required=True,
-	help="")
-ap.add_argument("-m", "--model", required=True,
-	help="")
-ap.add_argument("-c", "--confidence", type=float, default=0.2,
-	help="minimum probability to filter weak detections")
-args = vars(ap.parse_args())"""
 def main():
         # initialize the list of class labels MobileNet SSD was trained to
         # detect, then generate a set of bounding box colors for each class
@@ -30,12 +21,12 @@ def main():
 
         # load our serialized model from disk
         print("[INFO] loading model...")
-        net = cv2.dnn.readNetFromCaffe('MobileNetSSD_deploy.prototxt.txt', 'MobileNetSSD_deploy.caffemodel')
+        net = cv2.dnn.readNetFromCaffe('../models/MobileNetSSD_deploy.prototxt.txt', '../models/MobileNetSSD_deploy.caffemodel')
 
         # initialize the video stream, allow the cammera sensor to warmup,
         # and initialize the FPS counter
         print("[INFO] starting video stream...")
-        vs = VideoStream(src=3).start()
+        vs = VideoStream(src=1).start()
         time.sleep(2.0)
         fps = FPS().start()
 
@@ -61,7 +52,7 @@ def main():
                         # extract the confidence (i.e., probability) associated with
                         # the prediction
                         confidence = detections[0, 0, i, 2]
-
+                        people = 0
                         # filter out weak detections by ensuring the `confidence` is
                         # greater than the minimum confidence
                         if confidence > 0.2:
@@ -75,13 +66,14 @@ def main():
                                 # draw the prediction on the frame
                                 label = "{}: {:.2f}%".format(CLASSES[idx],
                                         confidence * 100)
+                                if (CLASSES[idx]=='person'):
+                                        people = people +1
                                 cv2.rectangle(frame, (startX, startY), (endX, endY),
                                         COLORS[idx], 2)
                                 y = startY - 15 if startY - 15 > 15 else startY + 15
                                 cv2.putText(frame, label, (startX, y),
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
 
-                # show the output frame
                 cv2.imshow("Frame", frame)
                 key = cv2.waitKey(1) & 0xFF
 

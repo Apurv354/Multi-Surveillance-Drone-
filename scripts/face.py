@@ -46,7 +46,7 @@ def main():
         # Display the resulting frame
         #cv2.putText(frame, "Number of faces detected: " + str(anterior), cv2.FONT_HERSHEY_TRIPLEX, 0.5,  (0,0,0), 1)
         cv2.imshow('Video', frame)
-        
+
 
 
         if cv2.waitKey(1) & 0xFF == ord('q'):

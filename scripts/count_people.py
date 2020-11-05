@@ -10,15 +10,6 @@ import imutils
 import time
 import cv2
 
-
-"""ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--prototxt", required=True,
-	help="")
-ap.add_argument("-m", "--model", required=True,
-	help="")
-ap.add_argument("-c", "--confidence", type=float, default=0.2,
-	help="minimum probability to filter weak detections")
-args = vars(ap.parse_args())"""
 def main():
         # initialize the list of class labels MobileNet SSD was trained to
         # detect, then generate a set of bounding box colors for each class
@@ -62,8 +53,8 @@ def main():
                 det_indx = detections[0, 0, :, 1]
                 top_label_indices = det_indx[top_indices].tolist()
                 c = 0
-              
-                
+
+
                 for i in top_label_indices:
                         if(CLASSES[int(i)]=='person'):
                                 c = c+1
@@ -83,26 +74,26 @@ def main():
                                                 idx = int(detections[0, 0, i, 1])
                                                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                                                 (startX, startY, endX, endY) = box.astype("int")
-                                                
-                      
+
+
                                                 #if(CLASSES[idx]=='bottle'):
                                                         #cv2.putText(frame, 'Object detected', (10,30),
                                                         #cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
-                                                       
+
                                                 # draw the prediction on the frame
                                                 label = "{}: {:.2f}%".format(CLASSES[idx],
                                                         confidence * 100)
-                                                
+
                                                 cv2.rectangle(frame, (startX, startY), (endX, endY),
                                                                 COLORS[idx], 2)
                                                 y = startY - 15 if startY - 15 > 15 else startY + 15
                                                 cv2.putText(frame, label, (startX, y),
                                                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
-                                               
+
                 label2= "{}: {:.2f}".format('No. of Person Detected (Code By Us)',c)
-                
+
                 cv2.putText(frame,label2 , (10, 40),
-                                        cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 2) 
+                                        cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 2)
                 #print(labels)
                 # show the output frame
                 cv2.imshow("Frame", frame)
