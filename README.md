@@ -1,5 +1,11 @@
-  # Multi-Surveillance-Drone
- 
+  # Multi-Surveillance-Drone for Hostage Identification
+
+## Problem Statement
+
+A group of terrorist have captured the building with hostages inside. We need to provide a Unmanned solution which could provide the essential information for the troops outside the building.
+
+## Solution
+
  Project involves a system which helps us to choose different options for survelliance.
  The UI is designed using tkinter and caffe model is used to detect objects.
  Single shot Detector is the technique used.
